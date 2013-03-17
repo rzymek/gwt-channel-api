@@ -32,9 +32,10 @@ import com.google.web.bindery.autobean.shared.AutoBeanUtils;
 import no.eirikb.gwtchannelapi.client.ChannelService;
 
 public abstract class ChannelServer extends RemoteServiceServlet implements ChannelService {
+	private static final long serialVersionUID = 1L;
 
-    protected static void send(String channel, Object o) {
-        AutoBean bean = AutoBeanUtils.getAutoBean(o);
+	protected static void send(String channel, Object o) {
+        AutoBean<?> bean = AutoBeanUtils.getAutoBean(o);
         String serialized = AutoBeanCodex.encode(bean).getPayload();
 
         ChannelServiceFactory.getChannelService().sendMessage(new ChannelMessage(channel, serialized));
