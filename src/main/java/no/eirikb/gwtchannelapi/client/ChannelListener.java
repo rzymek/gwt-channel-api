@@ -33,4 +33,10 @@ public interface ChannelListener {
      * @param event any object that extends from abstract class Event
      */
     void onReceive(Message message);
+    
+    void onOpen();
+
+    void onError(int code, String description);
+
+    void onClose();
 }

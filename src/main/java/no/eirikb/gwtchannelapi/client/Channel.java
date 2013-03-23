@@ -57,6 +57,24 @@ public class Channel {
             e.printStackTrace();
         }
     }
+    
+    private void onOpen() {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onOpen();
+        }
+    }
+
+    private void onError(int code, String description) {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onError(code, description);
+        }
+    }
+
+    private void onClose() {
+        for (int i = 0; i < channelListeners.size(); i++) {
+            channelListeners.get(i).onClose();
+        }
+    }
 
     /**
      * Join the channel
@@ -86,5 +104,17 @@ public class Channel {
             var data = evt.data;
             self.@no.eirikb.gwtchannelapi.client.Channel::onMessage(Ljava/lang/String;)(data);
         }
+        
+        socket.onopen = function() {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onOpen()();
+        };
+
+        socket.onerror = function(error) {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onError(ILjava/lang/String;)(error.code, error.description);
+        };
+
+        socket.onclose = function() {
+            self.@no.eirikb.gwtchannelapi.client.Channel::onClose()();
+        };
     }-*/;
 }
